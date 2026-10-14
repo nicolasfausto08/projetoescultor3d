@@ -10,7 +10,7 @@ void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius){
 				int dz = z - zcenter;
 				if((dx*dx)+(dy*dy)+(dz*dz) <= (radius*radius)){
 				putVoxel(x,y,z)
-        }
+        		}
 			}
 		}
 	}
