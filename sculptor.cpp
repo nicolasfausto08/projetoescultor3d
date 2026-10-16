@@ -6,6 +6,15 @@
 
 using namespace std;
 
+Sculptor::Sculptor(int _nx, int _ny, int _nz){
+    nx = _nx;
+    ny = _ny; 
+    nz = _nz;
+    r = g = b = a = 1.0 //cor padrão branca
+
+    
+}
+
 void Sculptor::setColor(float _r, float _g, float _b, float _a){
     r = _r;
     g = _g;
