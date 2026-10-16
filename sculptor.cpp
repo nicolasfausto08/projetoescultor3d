@@ -122,6 +122,11 @@ void Sculptor::writeOFF(const char* filename){
             }
         }
     }
+    int totalVertices = totalVoxels * 8;
+    int totalFaces = totalVoxels * 6;
+
+    fout << "OFF\n";
+    fout << totalVertices << " " << totalFaces << " 0\n";
 }
 
 
