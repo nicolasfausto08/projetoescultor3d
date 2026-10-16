@@ -164,6 +164,47 @@ void Sculptor::writeOFF(const char* filename){
 
     fout << "OFF\n";
     fout << totalVertices << " " << totalFaces << " 0\n";
+
+    for (int x = 0; x < nx; x++) {
+        for (int y = 0; y < ny; y++) {
+            for (int z = 0; z < nz; z++) {
+                if (v[x][y][z].show) {
+                    fout << x - 0.5 << " " << y + 0.5 << " " << z - 0.5 << "\n";
+                    fout << x - 0.5 << " " << y - 0.5 << " " << z - 0.5 << "\n";
+                    fout << x + 0.5 << " " << y - 0.5 << " " << z - 0.5 << "\n";
+                    fout << x + 0.5 << " " << y + 0.5 << " " << z - 0.5 << "\n";
+                    fout << x - 0.5 << " " << y + 0.5 << " " << z + 0.5 << "\n";
+                    fout << x - 0.5 << " " << y - 0.5 << " " << z + 0.5 << "\n";
+                    fout << x + 0.5 << " " << y - 0.5 << " " << z + 0.5 << "\n";
+                    fout << x + 0.5 << " " << y + 0.5 << " " << z + 0.5 << "\n";
+                }
+            }
+        }
+    }
+    int voxelIndex = 0;
+    for (int x = 0; x < nx; x++) {
+        for (int y = 0; y < ny; y++) {
+            for (int z = 0; z < nz; z++) {
+                if (v[x][y][z].show) {
+                    int k = voxelIndex * 8;
+                    fout << "4 " << k + 0 << " " << k + 3 << " " << k + 2 << " " << k + 1 << " "
+                         << v[x][y][z].r << " " << v[x][y][z].g << " " << v[x][y][z].b << " " << v[x][y][z].a << "\n";
+                    fout << "4 " << k + 4 << " " << k + 5 << " " << k + 6 << " " << k + 7 << " "
+                         << v[x][y][z].r << " " << v[x][y][z].g << " " << v[x][y][z].b << " " << v[x][y][z].a << "\n";
+                    fout << "4 " << k + 0 << " " << k + 1 << " " << k + 5 << " " << k + 4 << " "
+                         << v[x][y][z].r << " " << v[x][y][z].g << " " << v[x][y][z].b << " " << v[x][y][z].a << "\n";
+                    fout << "4 " << k + 0 << " " << k + 4 << " " << k + 7 << " " << k + 3 << " "
+                         << v[x][y][z].r << " " << v[x][y][z].g << " " << v[x][y][z].b << " " << v[x][y][z].a << "\n";
+                    fout << "4 " << k + 3 << " " << k + 7 << " " << k + 6 << " " << k + 2 << " "
+                         << v[x][y][z].r << " " << v[x][y][z].g << " " << v[x][y][z].b << " " << v[x][y][z].a << "\n";
+                    fout << "4 " << k + 1 << " " << k + 2 << " " << k + 6 << " " << k + 5 << " "
+                         << v[x][y][z].r << " " << v[x][y][z].g << " " << v[x][y][z].b << " " << v[x][y][z].a << "\n";
+                    voxelIndex++;
+                }
+            }
+        }
+    }
+    fout.close();
 }
 
 
