@@ -1,4 +1,8 @@
 #include <iostream>
+#include "sculptor.h"
+#include <fstream>
+#include <iomanip>
+#include <cmath>
 
 using namespace std;
 
