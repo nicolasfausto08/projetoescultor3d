@@ -6,13 +6,37 @@
 
 using namespace std;
 
+//Construtor
 Sculptor::Sculptor(int _nx, int _ny, int _nz){
     nx = _nx;
     ny = _ny; 
     nz = _nz;
     r = g = b = a = 1.0 //cor padrão branca
 
-    
+    v = new Voxel**[nx];
+    for(int i = 0; i < nx; i++){
+        v[i] = new Voxel*[ny];
+        for(int j = 0; j < ny; j++){
+            v[i][j] = new Voxel[nz];
+            for(int k = 0; k < nz; k++){
+                v[i][j][k].show = false;
+                v[i][j][k].r = 0.0;
+                v[i][j][k].g = 0.0;
+                v[i][j][k].b = 0.0;
+            }   
+        }
+    }    
+}
+
+//Destrutor
+Sculptor::~Sculptor(){
+    for(int i = 0; i < nx; i++){
+        for(int j = 0; j < ny; j++){
+            delete[] v[i][j];
+        }
+        delete[] v[i];
+    }    
+    delete[] v;
 }
 
 void Sculptor::setColor(float _r, float _g, float _b, float _a){
