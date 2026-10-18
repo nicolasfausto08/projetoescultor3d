@@ -11,7 +11,7 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz){
     nx = _nx;
     ny = _ny; 
     nz = _nz;
-    r = g = b = a = 1.0 //cor padrão branca
+    r = g = b = a = 1.0; //cor padrão branca
 
     v = new Voxel**[nx];
     for(int i = 0; i < nx; i++){
@@ -20,9 +20,10 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz){
             v[i][j] = new Voxel[nz];
             for(int k = 0; k < nz; k++){
                 v[i][j][k].show = false;
-                v[i][j][k].r = 0.0;
-                v[i][j][k].g = 0.0;
-                v[i][j][k].b = 0.0;
+                v[i][j][k].r = r;
+                v[i][j][k].g = g;
+                v[i][j][k].b = b;
+                v[i][j][k].a = a;
             }   
         }
     }    
@@ -48,7 +49,7 @@ void Sculptor::setColor(float _r, float _g, float _b, float _a){
 
 void Sculptor::putVoxel(int x, int y, int z){
     if(x >= 0 && x < nx && y >= 0 && y < ny && z >= 0 && z < nz){
-        v[x][y][z] = true;
+        v[x][y][z].show = true;
         v[x][y][z].r = r;
         v[x][y][z].g = g;
         v[x][y][z].b = b;
@@ -58,7 +59,7 @@ void Sculptor::putVoxel(int x, int y, int z){
 
 void Sculptor::cutVoxel(int x, int y, int z){
     if(x >= 0 && x < nx && y >= 0 && y < ny && z >= 0 && z < nz){
-        v[x][y][z] = false;
+        v[x][y][z].show = false;
     }
 }
 
@@ -89,7 +90,7 @@ void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius){
             for(int z = zcenter - radius; z <= zcenter + radius; z++){
                 int dist2 = (x-xcenter)*(x-xcenter) +
                             (y-ycenter)*(y-ycenter) +
-                            (z-zcenter)*(z-zcenter)
+                            (z-zcenter)*(z-zcenter);
                 if(dist2 < r2){
                     putVoxel(x, y, z);
                 }
@@ -204,6 +205,8 @@ void Sculptor::writeOFF(const char* filename){
             }
         }
     }
+    fout.close();
+}
     fout.close();
 }
 
